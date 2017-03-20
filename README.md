@@ -1,12 +1,12 @@
 <html>
   <head>
-    <title>Page Title</title>
+    <title>hinodi</title>
   </head>
   
   <body>
 
-    <h1>This is a Heading</h1>
-    <p>This is a paragraph.</p>
+    <h1>Huỳnh Ngọc Đỉnh</h1>
+    
 
   </body>
 </html>
