@@ -1,124 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <!-- Theme Made By www.w3schools.com - No Copyright -->
-  <title>Thông tin Khang Lương</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style>
-  body {
-      font: 20px Montserrat, sans-serif;
-      line-height: 1.8;
-      color: #f5f6f7;
-  }
-  p {font-size: 16px;}
-  .margin {margin-bottom: 45px;}
-  .bg-1 { 
-      background-color: #1abc9c; /* Green */
-      color: #ffffff;
-  }
-  .bg-2 { 
-      background-color: #474e5d; /* Dark Blue */
-      color: #ffffff;
-  }
-  .bg-3 { 
-      background-color: #ffffff; /* White */
-      color: #555555;
-  }
-  .bg-4 { 
-      background-color: #2f2f2f; /* Black Gray */
-      color: #fff;
-  }
-  .container-fluid {
-      padding-top: 70px;
-      padding-bottom: 70px;
-  }
-  .navbar {
-      padding-top: 15px;
-      padding-bottom: 15px;
-      border: 0;
-      border-radius: 0;
-      margin-bottom: 0;
-      font-size: 12px;
-      letter-spacing: 5px;
-  }
-  .navbar-nav  li a:hover {
-      color: #1abc9c !important;
-  }
-  </style>
-</head>
-<body>
+<!doctype html>
+<html lang="en" data-framework="angularjs">
+	<head>
+		<meta charset="utf-8">
 
-<!-- Navbar -->
-<nav class="navbar navbar-default">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#">Me</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="https://www.google.com/search?q=l%C6%B0%C6%A1ng+t%E1%BA%A5n+khang&source=lnms&sa=X&ved=0ahUKEwjSnvyq9-PSAhVLOo8KHQkIDrkQ_AUIBygA&biw=1366&bih=633&dpr=1">WHO</a></li>
-        <li><a href="#">WHAT</a></li>
-        <li><a href="#">WHERE</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+		<style>[ng-cloak] { display: none; }</style>
+	</head>
+	<body ng-app="todomvc">
+		<ng-view />
 
-<!-- First Container -->
-<div class="container-fluid bg-1 text-center">
-  <h3 class="margin">Who Am I?</h3>
-  <img src="https://i.ytimg.com/vi/j6zTiq2HzpE/maxresdefault.jpg" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="350" height="350">
-  <h3>I'm Fịch Thủ</h3>
-</div>
+		<script type="text/ng-template" id="todomvc-index.html">
+			<section id="todoapp">
+				<header id="header">
+				
+					<form id="todo-form" ng-submit="addTodo()">
+						<input id="new-todo" placeholder="Enter Todo List" ng-model="newTodo" ng-disabled="saving" autofocus>
+					</form>
+				</header>
+				<section id="main" ng-show="todos.length" ng-cloak>
+					<input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
+					<label for="toggle-all">Mark all as complete</label>
+					<ul id="todo-list">
+						<li ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
+							<div class="view">
+								<input class="toggle" type="checkbox" ng-model="todo.completed" ng-change="toggleCompleted(todo)">
+								<label ng-dblclick="editTodo(todo)">{{todo.title}}</label>
+								<button class="destroy" ng-click="removeTodo(todo)"></button>
+							</div>
+							<form ng-submit="saveEdits(todo, 'submit')">
+								<input class="edit" ng-trim="false" ng-model="todo.title" todo-escape="revertEdits(todo)" ng-blur="saveEdits(todo, 'blur')" todo-focus="todo == editedTodo">
+							</form>
+						</li>
+					</ul>
+				</section>
+				<footer id="footer" ng-show="todos.length" ng-cloak>
+					<span id="todo-count"><strong>{{remainingCount}}</strong>
+						<ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
+					</span>
+					<ul id="filters">
+						<li>
+							<a ng-class="{selected: status == ''} " href="#/">All</a>
+						</li>
+						<li>
+							<a ng-class="{selected: status == 'active'}" href="#/active">Active</a>
+						</li>
+						<li>
+							<a ng-class="{selected: status == 'completed'}" href="#/completed">Completed</a>
+						</li>
+					</ul>
+					<button id="clear-completed" ng-click="clearCompletedTodos()" ng-show="completedCount">Clear completed</button>
+				</footer>
+			</section>
 
-<!-- Third Container (Grid) -->
-<div class="container-fluid bg-3 text-center">    
-  <h3 class="margin">Where To Find Me?</h3><br>
-  <div class="row">
-    <div class="col-sm-4">
-      <p>Khang's friend: Phan Quoc Tuan</p>
-      <a href="https://www.facebook.com/phanquoctuan27121998">
-		<center>
-			<img src="https://scontent.fsgn3-1.fna.fbcdn.net/v/t1.0-1/c1.0.160.160/p160x160/16195781_235012546955249_8739662790232857753_n.jpg?oh=e4bfcad9cd05973242a07c96fcb6311a&oe=59592F85" 
-				class="img-responsive margin" style="width:20%; height:20%" alt="Image">
-		</center>
-	  </a>
-    </div>
-    <div class="col-sm-4"> 
-      <p>Khang's friend: Huynh Ngoc Dinh</p>
-      <a href="https://www.facebook.com/hinodi1998">
-		<center>
-			<img src="https://scontent.fsgn3-1.fna.fbcdn.net/v/t1.0-1/c0.31.160.160/p160x160/1544612_1471235189774017_567027491962678549_n.jpg?oh=7c4f1bc7d8607fabaa8d377885585d41&oe=5963610F" 
-				class="img-responsive margin" style="width:20%; height:20%" alt="Image">
-		</center>
-	  </a>
-    </div>
-    <div class="col-sm-4"> 
-		<p>Khang's Youtube</p>
-      <a href="https://www.youtube.com/user/MrAndyluong/">
-		<center>
-			<img src="https://yt3.ggpht.com/-ndFWEH9IRUY/AAAAAAAAAAI/AAAAAAAAAAA/jj1ZNDztTV8/s100-c-k-no-mo-rj-c0xffffff/photo.jpg" 
-				class="img-responsive margin" style="width:20%; height:20%" alt="Image">
-		</center>
-	  </a>
-    </div>
-  </div>
-</div>
-
-<!-- Footer -->
-<footer class="container-fluid bg-4 text-center">
-  <p>hinodi_1998</p> 
-</footer>
-
-</body>
+		</script>
+		<script src="node_modules/todomvc-common/base.js"></script>
+		<script src="node_modules/angular/angular.js"></script>
+		<script src="node_modules/angular-route/angular-route.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/controllers/todoCtrl.js"></script>
+		<script src="js/services/todoStorage.js"></script>
+		<script src="js/directives/todoFocus.js"></script>
+		<script src="js/directives/todoEscape.js"></script>
+	</body>
 </html>
