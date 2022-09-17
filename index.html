@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Hinodi</title>
-  </head>
-  <body>
-    <div id="root">
-      HINODI BODY
-    </div>
-  </body>
+
+<head>
+  <title>hinodi</title>
+</head>
+
+<body>
+  <div id="root">
+  </div>
+
+  <script>
+    const total = 1234
+
+    const totalP = document.createElement("p");
+    const totalNode = document.createTextNode(total);
+    totalP.appendChild(totalNode);
+
+    const root = document.getElementById("root");
+    root.appendChild(totalP);
+  </script>
+</body>
+
 </html>
