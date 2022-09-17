@@ -1,1 +1,0 @@
-# hinodi.github.io
